@@ -1,0 +1,62 @@
+:root {
+  --green: #007a43;
+  --dark: #08271b;
+  --yellow: #fed141;
+  --cream: #f4f1ec;
+  --sand: #cabd9b;
+  --muted: #58645c;
+  --line: #d8ddd5;
+  --font-family: Gotham, Helvetica, Arial, sans-serif;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-bold: 700;
+  --body-size: 14px;
+  --body-line: 1.6;
+  --h1-size: 42px;
+  --h1-line: 50px;
+  --h2-size: 30px;
+  --h2-line: 38px;
+  --h3-size: 22px;
+  --h3-line: 30px;
+  --caption-size: 12px;
+  --label-size: 14px;
+  --button-size: 16px;
+  --nav-size: 16px;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --radius-control: 7px;
+  --radius-panel: 12px;
+  --content-width: 1280px;
+}
+@media (min-width: 768px) {
+  :root {
+    --body-size: 16px;
+    --h1-size: 60px;
+    --h1-line: 72px;
+    --h2-size: 40px;
+    --h2-line: 52px;
+    --h3-size: 24px;
+    --h3-line: 32px;
+    --label-size: 16px;
+  }
+}
+@media (min-width: 991px) {
+  :root {
+    --h2-size: 42px;
+    --h2-line: 50px;
+  }
+}
+@media (min-width: 1560px) {
+  :root {
+    --h1-size: 84px;
+    --h1-line: 96px;
+    --h2-size: 48px;
+    --h2-line: 60px;
+    --h3-size: 28px;
+    --h3-line: 36px;
+    --nav-size: 20px;
+  }
+}

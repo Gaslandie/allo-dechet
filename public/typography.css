@@ -1,0 +1,120 @@
+@font-face {
+  font-family: Gotham;
+  src: url("/fonts/Gotham-Book.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Gotham;
+  src: url("/fonts/Gotham-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Gotham;
+  src: url("/fonts/Gotham-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  font-family: var(--font-family);
+  font-synthesis: none;
+}
+body {
+  font-size: var(--body-size);
+  line-height: var(--body-line);
+  font-weight: var(--font-regular);
+}
+h1,
+h2,
+h3,
+.title-page,
+.title-section,
+.title-card {
+  font-weight: var(--font-medium);
+  letter-spacing: normal;
+}
+h1,
+.title-page {
+  font-size: var(--h1-size);
+  line-height: var(--h1-line);
+}
+h2,
+.title-section {
+  font-size: var(--h2-size);
+  line-height: var(--h2-line);
+}
+h3,
+.title-card {
+  font-size: var(--h3-size);
+  line-height: var(--h3-line);
+}
+p,
+.text-body {
+  font-size: var(--body-size);
+  line-height: var(--body-line);
+}
+.eyebrow {
+  font-size: var(--label-size);
+  line-height: 1.5;
+  font-weight: var(--font-medium);
+}
+small,
+figcaption,
+.text-caption,
+.hero-media-note,
+.footer-bottom,
+.photo-placeholder strong,
+.map-placeholder > strong,
+.step-number {
+  font-size: var(--caption-size);
+  line-height: 1.5;
+}
+.button,
+.text-button,
+.mobile-subscribe,
+.pricing-switch button {
+  font-size: var(--button-size);
+  line-height: 1.4;
+  font-weight: var(--font-medium);
+}
+.navigation-links,
+.navigation-actions,
+.menu-toggle {
+  font-size: var(--nav-size);
+  font-weight: var(--font-medium);
+}
+.mobile-menu-links a,
+.about-accordion summary,
+.faq-list summary {
+  font-size: var(--h3-size);
+  line-height: var(--h3-line);
+  font-weight: var(--font-medium);
+}
+.stat > strong {
+  font-size: clamp(78px, 6vw, 95px);
+  line-height: 1;
+  font-weight: var(--font-regular);
+}
+.price-value {
+  font-size: clamp(30px, 3vw, 36px);
+  line-height: 1.2;
+  font-weight: var(--font-medium);
+}
+.media-symbol {
+  font-size: 36px;
+  line-height: 1;
+}
+.map-placeholder .media-symbol {
+  font-size: 70px;
+}
+.plus {
+  font-size: 22px;
+  line-height: 1;
+}
+.facts-strip i {
+  font-weight: var(--font-bold);
+}

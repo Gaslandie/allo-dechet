@@ -1,0 +1,17 @@
+{
+  "name": "allo-dechets-maquette-accueil",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Maquette locale de la page d’accueil ALLÔ DÉCHETS",
+  "scripts": {
+    "dev": "npm run build && python3 -m http.server 5180 --bind 127.0.0.1 --directory public",
+    "check": "node --check public/app.js && node --check public/navigation.js && node scripts/build.mjs --check && node scripts/check-styles.mjs",
+    "build": "node scripts/build.mjs",
+    "format": "prettier --write \"src/**/*.{html,json}\" \"public/*.{css,js}\" \"scripts/*.mjs\" package.json",
+    "build:pages": "npm run build && npm run check && node scripts/build-pages.mjs"
+  },
+  "devDependencies": {
+    "postcss": "8.5.32",
+    "prettier": "3.9.10"
+  }
+}

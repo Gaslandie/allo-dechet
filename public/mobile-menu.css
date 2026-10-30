@@ -1,0 +1,152 @@
+dialog.mobile-menu {
+  position: fixed;
+  inset: 10px;
+  width: calc(100% - 20px);
+  height: calc(100dvh - 20px);
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-panel);
+  background: var(--cream);
+  color: var(--dark);
+  overflow: hidden;
+}
+/* Navigation compacte, sous 1400 px. */
+body.menu-is-open {
+  overflow: hidden;
+}
+.mobile-menu[open] {
+  display: flex;
+  flex-direction: column;
+}
+.mobile-menu::backdrop {
+  background: #08271b40;
+}
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 24px;
+  flex-shrink: 0;
+}
+.mobile-menu-header .wordmark img {
+  width: 190px;
+  height: auto;
+}
+.mobile-menu-close {
+  background: transparent;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  border-radius: 50%;
+  color: var(--dark);
+}
+.mobile-menu-close:hover {
+  background: #cabd9b40;
+}
+.mobile-menu-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 20px 24px 14px;
+  display: flex;
+  flex-direction: column;
+}
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40px;
+}
+.mobile-menu-links a {
+  display: block;
+  padding: 23px 14px;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+}
+.mobile-menu-links a:hover {
+  color: var(--green);
+  background: #cabd9b1a;
+}
+.mobile-menu-bottom {
+  margin-top: auto;
+  border-top: 1px solid var(--sand);
+  padding-top: 22px;
+  flex-shrink: 0;
+}
+.mobile-subscribe {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  padding: 6px 14px;
+  min-height: 44px;
+}
+.mobile-contact-links {
+  display: flex;
+  gap: 20px;
+  padding: 18px 14px 30px;
+}
+.mobile-contact-links a {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e7e1d2;
+}
+.mobile-contact-links a:hover {
+  background: var(--yellow);
+}
+.mobile-menu .mobile-quote {
+  width: 100%;
+  margin: 0;
+  padding: 15px 20px;
+  min-height: 48px;
+}
+@media (max-width: 1399px) {
+  .menu-toggle {
+    display: flex;
+  }
+}
+@media (max-width: 600px) {
+  .mobile-menu-header {
+    padding: 14px;
+  }
+  .mobile-menu-header .wordmark img {
+    width: 170px;
+  }
+  .mobile-menu-content {
+    padding: 10px 14px 14px;
+  }
+  .mobile-menu-links {
+    padding-bottom: 28px;
+  }
+  .mobile-menu-links a {
+    padding: 18px 10px;
+  }
+}
+@media (max-height: 650px) {
+  .mobile-menu-links a {
+    padding-block: 14px;
+  }
+  .mobile-menu-links {
+    padding-bottom: 24px;
+  }
+  .mobile-contact-links {
+    padding-block: 10px 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu[open] {
+    animation: none;
+  }
+  .mobile-menu-links a {
+    transition: none;
+  }
+}

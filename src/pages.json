@@ -1,0 +1,50 @@
+[
+  {
+    "path": "contact",
+    "title": "Contact"
+  },
+  {
+    "path": "demande-de-devis",
+    "title": "Demander un devis"
+  },
+  {
+    "path": "qui-sommes-nous",
+    "title": "Qui sommes-nous"
+  },
+  {
+    "path": "actualites",
+    "title": "Actualités et aide"
+  },
+  {
+    "path": "services",
+    "title": "Nos services"
+  },
+  {
+    "path": "faq",
+    "title": "Questions fréquentes"
+  },
+  {
+    "path": "abonnement",
+    "title": "S’abonner"
+  },
+  {
+    "path": "zones-et-tarifs",
+    "title": "Zones et tarifs"
+  },
+  {
+    "path": "services/menages",
+    "title": "Collecte pour les ménages"
+  },
+  {
+    "path": "services/etablissements",
+    "title": "Collecte pour les établissements"
+  },
+  {
+    "path": "services/ramassage-ponctuel",
+    "title": "Ramassage ponctuel"
+  },
+  {
+    "path": "services/industriels",
+    "title": "Collecte pour les industriels"
+  }
+]

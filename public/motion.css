@@ -1,0 +1,221 @@
+/* Images et animations de la maquette. */
+.hero {
+  isolation: isolate;
+  margin: 0;
+  border-radius: 0;
+}
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 44%;
+  z-index: -2;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 39, 27, 0.88),
+      rgba(8, 39, 27, 0.53) 58%,
+      rgba(8, 39, 27, 0.2)
+    ),
+    linear-gradient(
+      180deg,
+      rgba(8, 39, 27, 0.4),
+      transparent 40%,
+      rgba(8, 39, 27, 0.25)
+    );
+}
+.hero-media-note {
+  background: #08271bba;
+  color: white;
+}
+.demo-photo {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+  background: var(--cream);
+}
+.demo-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.demo-photo figcaption {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: auto;
+  max-width: calc(100% - 32px);
+  padding: 6px 10px;
+  background: #08271bd9;
+  color: white;
+  border-radius: 4px;
+}
+.about-photo {
+  height: 470px;
+}
+.about-photo img {
+  object-position: 55% center;
+}
+.about-photo figcaption {
+  left: 50%;
+  bottom: 55px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.equipment-photo {
+  height: 100%;
+  min-height: 310px;
+}
+.equipment-photo img {
+  position: absolute;
+  inset: 0;
+}
+.news-photo {
+  margin-bottom: 25px;
+}
+.news-photo img {
+  position: absolute;
+  inset: 0;
+}
+.button span,
+.service-card a span,
+.service-card button span {
+  display: inline-block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-content > * {
+    animation: hero-enter 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .hero-content h1 {
+    animation-delay: 0.08s;
+  }
+  .hero-description {
+    animation-delay: 0.16s;
+  }
+  .hero-content .actions {
+    animation-delay: 0.24s;
+  }
+  .hero-image {
+    animation: hero-settle 1.6s ease-out both;
+  }
+  .demo-photo img {
+    transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .service-card,
+  .price-card {
+    transition:
+      background-color 0.3s,
+      color 0.3s,
+      transform 0.3s,
+      box-shadow 0.3s;
+  }
+  .service-card p,
+  .service-icon {
+    transition:
+      color 0.3s,
+      border-color 0.3s,
+      background-color 0.3s;
+  }
+  .button span,
+  .service-card a span,
+  .service-card button span {
+    transition: transform 0.25s;
+  }
+  @keyframes hero-enter {
+    from {
+      opacity: 0.25;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes hero-settle {
+    from {
+      transform: scale(1.035);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .demo-photo:hover img {
+    transform: scale(1.045);
+  }
+  .service-card:hover {
+    background: var(--green);
+    color: white;
+    transform: translateY(-5px);
+  }
+  .service-card:hover p,
+  .service-card:hover .card-index {
+    color: white;
+  }
+  .service-card:hover .service-icon {
+    color: var(--yellow);
+    border-color: var(--yellow);
+  }
+  .price-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px #08271b0c;
+  }
+  .button:hover span,
+  .service-card a:hover span,
+  .service-card button:hover span {
+    transform: translate(3px, -3px);
+  }
+}
+.service-card:focus-within {
+  background: var(--green);
+  color: white;
+}
+.service-card:focus-within p,
+.service-card:focus-within .card-index {
+  color: white;
+}
+.service-card:focus-within .service-icon {
+  color: var(--yellow);
+  border-color: var(--yellow);
+}
+@media (max-width: 767px) {
+  .hero-image {
+    object-position: 62% center;
+  }
+  .hero::after {
+    background: linear-gradient(90deg, #08271bd9, #08271b80);
+  }
+  .about-photo {
+    height: 360px;
+  }
+  .equipment-photo {
+    min-height: 280px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .demo-photo:hover img,
+  .service-card:hover,
+  .price-card:hover,
+  .button:hover span,
+  .service-card a:hover span,
+  .service-card button:hover span {
+    transform: none;
+  }
+}

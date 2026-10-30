@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+.env.*
+*.pem
+*.key
+ALLO_DECHETS_maquette_accueil_contenus.md
+docs/historique-maquette.md
