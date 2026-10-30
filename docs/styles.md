@@ -34,3 +34,15 @@ Référence : capture Recorra fournie dans la conversation. Logo à gauche, rubr
 Référence Google : https://support.google.com/maps/answer/7101463?hl=fr, partage et intégration de cartes. Les 12 recherches par commune + Guinée ont renvoyé une carte intégrée. L’URL testée par HEAD sur www.google.com donnait 404 ; les requêtes GET sur maps.google.com ont renvoyé les cartes. Google utilise Lambanyi et Manéah pour les noms Lambangni et Maneyah fournis par le client. Les noms du document sont conservés, les correspondances restent à valider.
 
 La carte suit le choix de commune ; le cadre affiche une localisation indicative et ne dessine aucune zone de desserte. Lien de secours vers Google Maps dans un nouvel onglet, avec noopener/noreferrer. Aucune clé personnelle, aucun paiement API ni accès à la géolocalisation. L’intégration charge un contenu Google tiers. Seul frame-src est ajouté pour maps.google.com et www.google.com ; scripts, connexions et formulaires de la page gardent leurs restrictions. Liste de communes autorisées et URLSearchParams évitent l’injection d’URL. Les 12 mises à jour de titre et d’URL ont été contrôlées dans Chrome, sans validation visuelle des emplacements.
+
+## Défilement automatique des services — 30 octobre 2026
+
+À la demande de Gassama, remplacement de la barre manuelle par un déplacement automatique lent (32 px/s), avec aller-retour et arrêt de 1,4 seconde aux extrémités. Pause au survol et au focus clavier, bouton pause/reprise disponible sur téléphone, suspension hors écran et dans un onglet masqué. Aucun lien dupliqué. Le réglage de réduction des animations affiche les quatre cartes sans mouvement.
+
+Référence consultée : https://www.w3.org/WAI/tutorials/carousels/animations/ ; recommandations de pause/reprise, pause au survol et au focus adaptées au carrousel existant. Vérifications Chrome : mouvement automatique, arrêt au survol, pause et reprise par bouton, arrêt au focus ; mode réduit à 390 px avec quatre cartes et sans débordement horizontal. Aucune connexion ou collecte de données ajoutée. Modification locale en attente de publication.
+
+## Pied de page mobile — 30 octobre 2026
+
+Référence : captures mobiles fournies par Gassama à 09:40. Les colonnes étroites forçaient le nom ALLÔ DÉCHETS sur deux lignes et les espacements variaient entre blocs. La version mobile utilise désormais une colonne, des séparations et espacements réguliers, des liens d’au moins 44 px de haut et un logo de 190 px. Suppression de la seconde mention de logo temporaire et harmonisation du lien S’abonner avec les autres liens. Les informations À fournir restent présentes.
+
+Mesures Chrome à 320 et 390 px : aucun débordement du footer, titres sur une ligne, liens de 44 px minimum. À 768 px, la structure bureau reste en colonnes sans débordement. Génération des 13 pages et contrôles de styles réussis. Modifications locales, non publiées.

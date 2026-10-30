@@ -138,7 +138,7 @@
           id="services-track"
           tabindex="0"
           role="region"
-          aria-label="Nos quatre services, défilement horizontal"
+          aria-label="Nos quatre services"
         >
           <a class="service-card" href="/services/menages/"
             ><span class="service-icon" aria-hidden="true"
@@ -257,19 +257,16 @@
             </p></a
           >
         </div>
-        <div class="container services-scroll-control" hidden>
-          <label class="sr-only" for="services-position"
-            >Faire défiler les services</label
-          ><input
-            id="services-position"
-            type="range"
-            min="0"
-            max="100"
-            value="0"
-            step="0.1"
+        <div class="container services-playback" hidden>
+          <button
+            id="services-pause"
+            class="button outline"
+            type="button"
             aria-controls="services-track"
-            aria-valuetext="Début de la liste des services"
-          />
+            aria-pressed="false"
+          >
+            Mettre en pause
+          </button>
         </div>
       </section>
 

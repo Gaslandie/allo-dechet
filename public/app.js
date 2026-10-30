@@ -39,98 +39,106 @@ document.querySelectorAll("[data-client]").forEach((button) => {
 // Les animations ne jouent qu'une fois, quand un bloc entre dans l'écran.
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const servicesTrack = document.querySelector("#services-track");
-const servicesPosition = document.querySelector("#services-position");
-const servicesControl = document.querySelector(".services-scroll-control");
-let servicesAnimation = 0;
-let servicesTarget = 0;
+const servicesPlayback = document.querySelector(".services-playback");
+const servicesPause = document.querySelector("#services-pause");
+let servicesFrame = 0;
+let servicesDirection = 1;
+let servicesPosition = 0;
+let servicesPreviousTime = 0;
+let servicesWaitUntil = 0;
+let servicesHovered = false;
+let servicesPaused = false;
+let servicesVisible = false;
 
-function syncServicesPosition() {
-  const maximum = servicesTrack.scrollWidth - servicesTrack.clientWidth;
-  servicesControl.hidden = maximum <= 1;
-  servicesTrack.classList.toggle("has-scroll-control", maximum > 1);
-  const visiblePart = Math.min(
-    100,
-    (servicesTrack.clientWidth / servicesTrack.scrollWidth) * 100,
-  );
-  servicesPosition.style.setProperty(
-    "--services-thumb-width",
-    `${visiblePart}%`,
-  );
-  const value =
-    maximum > 0
-      ? Math.round((servicesTrack.scrollLeft / maximum) * 1000) / 10
-      : 0;
-  if (!servicesAnimation) servicesPosition.value = String(value);
-  servicesPosition.setAttribute(
-    "aria-valuetext",
-    value <= 0
-      ? "Début de la liste des services"
-      : value >= 100
-        ? "Fin de la liste des services"
-        : `Position dans les services : ${value} %`,
+function canMoveServices() {
+  return (
+    !reducedMotion.matches &&
+    !servicesPaused &&
+    !servicesHovered &&
+    servicesVisible &&
+    !document.hidden &&
+    !servicesTrack.contains(document.activeElement) &&
+    servicesTrack.scrollWidth > servicesTrack.clientWidth + 1
   );
 }
-function stopServicesAnimation() {
-  cancelAnimationFrame(servicesAnimation);
-  servicesAnimation = 0;
-}
 
-servicesPosition.addEventListener("input", () => {
-  stopServicesAnimation();
+function animateServices(now) {
+  servicesFrame = 0;
+  if (!canMoveServices()) return;
+  const elapsed = servicesPreviousTime
+    ? Math.min(now - servicesPreviousTime, 48)
+    : 0;
+  servicesPreviousTime = now;
   const maximum = servicesTrack.scrollWidth - servicesTrack.clientWidth;
-  servicesTarget = (maximum * Number(servicesPosition.value)) / 100;
-  if (reducedMotion.matches) {
-    servicesTrack.scrollLeft = servicesTarget;
-    syncServicesPosition();
-    return;
-  }
-
-  const start = servicesTrack.scrollLeft;
-  const startedAt = performance.now();
-  const duration = 220;
-  function advance(now) {
-    const progress = Math.min(1, (now - startedAt) / duration);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    servicesTrack.scrollLeft = start + (servicesTarget - start) * eased;
-    if (progress < 1) {
-      servicesAnimation = requestAnimationFrame(advance);
-    } else {
-      servicesAnimation = 0;
-      syncServicesPosition();
+  if (now >= servicesWaitUntil) {
+    servicesPosition = Math.max(
+      0,
+      Math.min(maximum, servicesPosition + servicesDirection * elapsed * 0.032),
+    );
+    servicesTrack.scrollLeft = servicesPosition;
+    if (
+      (servicesDirection > 0 && servicesPosition === maximum) ||
+      (servicesDirection < 0 && servicesPosition === 0)
+    ) {
+      servicesDirection *= -1;
+      servicesWaitUntil = now + 1400;
     }
   }
-  servicesAnimation = requestAnimationFrame(advance);
-});
+  servicesFrame = requestAnimationFrame(animateServices);
+}
 
-// Le geste direct sur les cartes reprend la main sur la barre animée.
-for (const event of ["pointerdown", "touchstart", "wheel", "keydown"]) {
-  servicesTrack.addEventListener(
-    event,
-    () => {
-      stopServicesAnimation();
-      syncServicesPosition();
-    },
-    { passive: true },
-  );
+function updateServicesPlayback() {
+  cancelAnimationFrame(servicesFrame);
+  servicesFrame = 0;
+  servicesPreviousTime = 0;
+  servicesPosition = servicesTrack.scrollLeft;
+  const enabled =
+    !reducedMotion.matches &&
+    servicesTrack.scrollWidth > servicesTrack.clientWidth + 1;
+  servicesTrack.classList.toggle("auto-scroll", enabled);
+  servicesPlayback.hidden = !enabled;
+  if (canMoveServices()) servicesFrame = requestAnimationFrame(animateServices);
 }
-servicesTrack.addEventListener("scroll", syncServicesPosition, {
-  passive: true,
+
+servicesPause.addEventListener("click", () => {
+  servicesPaused = !servicesPaused;
+  servicesPause.textContent = servicesPaused
+    ? "Reprendre le défilement"
+    : "Mettre en pause";
+  servicesPause.setAttribute("aria-pressed", String(servicesPaused));
+  updateServicesPlayback();
 });
-function resizeServices() {
-  stopServicesAnimation();
-  syncServicesPosition();
-}
-window.addEventListener("resize", resizeServices, { passive: true });
+servicesTrack.addEventListener("pointerenter", (event) => {
+  if (event.pointerType === "touch") return;
+  servicesHovered = true;
+  updateServicesPlayback();
+});
+servicesTrack.addEventListener("pointerleave", () => {
+  servicesHovered = false;
+  updateServicesPlayback();
+});
+servicesTrack.addEventListener("focusin", updateServicesPlayback);
+servicesTrack.addEventListener("focusout", () =>
+  queueMicrotask(updateServicesPlayback),
+);
+servicesTrack.addEventListener("dragstart", (event) => event.preventDefault());
+document.addEventListener("visibilitychange", updateServicesPlayback);
+reducedMotion.addEventListener("change", updateServicesPlayback);
+window.addEventListener("resize", updateServicesPlayback, { passive: true });
 if ("ResizeObserver" in window)
-  new ResizeObserver(resizeServices).observe(servicesTrack);
-reducedMotion.addEventListener("change", (event) => {
-  if (event.matches && servicesAnimation) {
-    stopServicesAnimation();
-    servicesTrack.scrollLeft = servicesTarget;
-    syncServicesPosition();
-  }
-});
-syncServicesPosition();
+  new ResizeObserver(updateServicesPlayback).observe(servicesTrack);
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(
+    (entries) => {
+      servicesVisible = entries[0].isIntersecting;
+      updateServicesPlayback();
+    },
+    { threshold: 0.1 },
+  ).observe(servicesTrack);
+} else {
+  servicesVisible = true;
+}
+updateServicesPlayback();
 if (
   "IntersectionObserver" in window &&
   typeof Element.prototype.animate === "function"
