@@ -689,13 +689,14 @@ footer .container {
   }
   .hero {
     margin: 12px;
-    min-height: 720px;
+    min-height: 0;
   }
   .navigation {
     padding: 22px 20px;
   }
   .hero-content {
-    padding-block: 75px 155px;
+    flex: none;
+    padding-block: 75px 32px;
     justify-content: flex-start;
   }
   .hero-description {
@@ -710,9 +711,12 @@ footer .container {
     gap: 12px;
   }
   .hero-media-note {
-    left: 20px;
+    position: relative;
+    align-self: flex-start;
+    margin: 0 20px 24px;
+    left: auto;
     right: auto;
-    bottom: 25px;
+    bottom: auto;
     padding: 10px 12px;
   }
   .facts-strip {
@@ -928,9 +932,6 @@ footer .container {
   }
   .hero .actions {
     flex-direction: column;
-  }
-  .hero {
-    min-height: 770px;
   }
   .process-grid {
     grid-template-columns: 1fr;
