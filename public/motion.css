@@ -21,27 +21,27 @@
   background:
     linear-gradient(
       90deg,
-      rgba(8, 39, 27, 0.88),
-      rgba(8, 39, 27, 0.53) 58%,
-      rgba(8, 39, 27, 0.2)
+      color-mix(in srgb, var(--dark) 88%, transparent),
+      color-mix(in srgb, var(--dark) 53%, transparent) 58%,
+      color-mix(in srgb, var(--dark) 20%, transparent)
     ),
     linear-gradient(
       180deg,
-      rgba(8, 39, 27, 0.4),
+      color-mix(in srgb, var(--dark) 40%, transparent),
       transparent 40%,
-      rgba(8, 39, 27, 0.25)
+      color-mix(in srgb, var(--dark) 25%, transparent)
     );
 }
 .hero-media-note {
-  background: #08271bba;
-  color: white;
+  background: color-mix(in srgb, var(--dark) 72.9%, transparent);
+  color: var(--white);
 }
 .demo-photo {
   margin: 0;
   position: relative;
   overflow: hidden;
   border-radius: 7px;
-  background: var(--cream);
+  background: var(--surface);
 }
 .demo-photo img {
   display: block;
@@ -56,8 +56,8 @@
   right: auto;
   max-width: calc(100% - 32px);
   padding: 6px 10px;
-  background: #08271bd9;
-  color: white;
+  background: color-mix(in srgb, var(--dark) 85.1%, transparent);
+  color: var(--white);
   border-radius: 4px;
 }
 .about-photo {
@@ -156,20 +156,20 @@
   }
   .service-card:hover {
     background: var(--green);
-    color: white;
+    color: var(--white);
     transform: translateY(-5px);
   }
   .service-card:hover p,
   .service-card:hover .card-index {
-    color: white;
+    color: var(--white);
   }
   .service-card:hover .service-icon {
-    color: var(--yellow);
-    border-color: var(--yellow);
+    color: var(--accent);
+    border-color: var(--accent);
   }
   .price-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px #08271b0c;
+    box-shadow: 0 12px 30px color-mix(in srgb, var(--dark) 4.7%, transparent);
   }
   .button:hover span,
   .service-card a:hover span,
@@ -179,22 +179,26 @@
 }
 .service-card:focus-within {
   background: var(--green);
-  color: white;
+  color: var(--white);
 }
 .service-card:focus-within p,
 .service-card:focus-within .card-index {
-  color: white;
+  color: var(--white);
 }
 .service-card:focus-within .service-icon {
-  color: var(--yellow);
-  border-color: var(--yellow);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 @media (max-width: 767px) {
   .hero-image {
     object-position: 62% center;
   }
   .hero::after {
-    background: linear-gradient(90deg, #08271bd9, #08271b80);
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--dark) 85.1%, transparent),
+      color-mix(in srgb, var(--dark) 50.2%, transparent)
+    );
   }
   .about-photo {
     height: 360px;

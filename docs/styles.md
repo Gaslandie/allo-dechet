@@ -1,5 +1,11 @@
 # Styles partagés
 
+## Palette client — 30 octobre 2026
+
+La palette fournie par le client remplace les couleurs de la référence Recorra : vert foncé #0D3B2E, vert clair #7DBA2E et blanc. La structure et la typographie de la référence restent en place. Le jaune et le beige sont retirés, y compris des logos temporaires et des lignes décoratives. Les fonds blancs sont délimités par des bordures discrètes ; les nuances de bordure, de survol et de texte secondaire sont dérivées des couleurs centrales dans tokens.css.
+
+Comparaison avec les recommandations W3C consultées le 30 octobre 2026 : https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html. Le seuil des textes courants est 4,5:1. Calculs de la palette : vert foncé sur blanc 12,48:1 ; vert foncé sur vert clair 5,31:1 ; blanc sur vert clair 2,35:1. Cette dernière association est donc écartée pour les textes des boutons. Contrôles de construction et des styles calculés dans le navigateur ; validation visuelle laissée au client.
+
 ## Références — 30 octobre 2026
 
 - Recorra : https://www.recorra.co.uk/ et sa feuille https://www.recorra.co.uk/assets/main-DaX3H-j2.css. Consultation renouvelée pour cette refonte. Les classes headline-1 à headline-6 définissent des niveaux réutilisables avec des paliers responsive ; Gotham, vert, jaune et crème restent la référence visuelle.

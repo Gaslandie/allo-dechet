@@ -3,10 +3,26 @@
 const menuButton = document.querySelector(".menu-toggle");
 const menu = document.querySelector("#mobile-menu");
 const compactNavigation = window.matchMedia("(max-width: 1399px)");
+let menuExit = null;
 function closeMenu() {
+  menuExit?.cancel();
+  menuExit = null;
   if (menu.open) menu.close();
   menuButton.setAttribute("aria-expanded", "false");
   document.body.classList.remove("menu-is-open");
+  if (compactNavigation.matches) menuButton.focus({ preventScroll: true });
+}
+function dismissMenu() {
+  if (!menu.open || menuExit) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    closeMenu();
+    return;
+  }
+  menuExit = menu.animate(
+    [{ transform: "translateX(0)" }, { transform: "translateX(100%)" }],
+    { duration: 240, easing: "ease-in", fill: "forwards" },
+  );
+  menuExit.onfinish = closeMenu;
 }
 menuButton.addEventListener("click", () => {
   if (!compactNavigation.matches) return;
@@ -19,7 +35,8 @@ menuButton.addEventListener("click", () => {
 menu.addEventListener(
   "click",
   (event) => {
-    if (event.target.closest("a, button")) closeMenu();
+    if (event.target.closest(".mobile-menu-close")) dismissMenu();
+    else if (event.target.closest("a, button")) closeMenu();
   },
   true,
 );
@@ -29,7 +46,7 @@ menu.addEventListener("close", () => {
 });
 menu.addEventListener("cancel", (event) => {
   event.preventDefault();
-  closeMenu();
+  dismissMenu();
 });
 compactNavigation.addEventListener("change", (event) => {
   if (!event.matches && menu.open) {

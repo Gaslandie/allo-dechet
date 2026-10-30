@@ -39,21 +39,19 @@ document.querySelectorAll("[data-client]").forEach((button) => {
 // Les animations ne jouent qu'une fois, quand un bloc entre dans l'écran.
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const servicesTrack = document.querySelector("#services-track");
-const servicesPlayback = document.querySelector(".services-playback");
-const servicesPause = document.querySelector("#services-pause");
+const mobileServices = window.matchMedia("(max-width: 767px)");
 let servicesFrame = 0;
 let servicesDirection = 1;
 let servicesPosition = 0;
 let servicesPreviousTime = 0;
 let servicesWaitUntil = 0;
 let servicesHovered = false;
-let servicesPaused = false;
 let servicesVisible = false;
 
 function canMoveServices() {
   return (
     !reducedMotion.matches &&
-    !servicesPaused &&
+    !mobileServices.matches &&
     !servicesHovered &&
     servicesVisible &&
     !document.hidden &&
@@ -92,22 +90,15 @@ function updateServicesPlayback() {
   servicesFrame = 0;
   servicesPreviousTime = 0;
   servicesPosition = servicesTrack.scrollLeft;
+  if (mobileServices.matches) servicesTrack.scrollLeft = 0;
   const enabled =
     !reducedMotion.matches &&
+    !mobileServices.matches &&
     servicesTrack.scrollWidth > servicesTrack.clientWidth + 1;
   servicesTrack.classList.toggle("auto-scroll", enabled);
-  servicesPlayback.hidden = !enabled;
   if (canMoveServices()) servicesFrame = requestAnimationFrame(animateServices);
 }
 
-servicesPause.addEventListener("click", () => {
-  servicesPaused = !servicesPaused;
-  servicesPause.textContent = servicesPaused
-    ? "Reprendre le défilement"
-    : "Mettre en pause";
-  servicesPause.setAttribute("aria-pressed", String(servicesPaused));
-  updateServicesPlayback();
-});
 servicesTrack.addEventListener("pointerenter", (event) => {
   if (event.pointerType === "touch") return;
   servicesHovered = true;

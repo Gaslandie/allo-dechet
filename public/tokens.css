@@ -1,11 +1,15 @@
 :root {
-  --green: #007a43;
-  --dark: #08271b;
-  --yellow: #fed141;
-  --cream: #f4f1ec;
-  --sand: #cabd9b;
-  --muted: #58645c;
-  --line: #d8ddd5;
+  --green: #0d3b2e;
+  --dark: var(--green);
+  --accent: #7dba2e;
+  --white: #ffffff;
+  --surface: var(--white);
+  --surface-hover: color-mix(in srgb, var(--accent) 10%, var(--white));
+  --accent-hover: color-mix(in srgb, var(--accent) 85%, var(--white));
+  --muted: color-mix(in srgb, var(--dark) 80%, var(--white));
+  --line: color-mix(in srgb, var(--dark) 20%, var(--white));
+  --border-strong: color-mix(in srgb, var(--dark) 45%, var(--white));
+  --on-dark-muted: color-mix(in srgb, var(--white) 85%, var(--dark));
   --font-family: Gotham, Helvetica, Arial, sans-serif;
   --font-regular: 400;
   --font-medium: 500;

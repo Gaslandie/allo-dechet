@@ -22,7 +22,7 @@
   align-items: center;
   gap: var(--space-sm);
   background: transparent;
-  color: white;
+  color: var(--white);
   padding: 12px;
 }
 .navigation-links {
@@ -39,7 +39,8 @@
   margin-top: var(--space-lg);
   padding: var(--space-lg);
   border-radius: var(--radius-panel);
-  background: var(--cream);
+  background: var(--surface);
+  border: 1px solid var(--line);
 }
 .contact-card-icon {
   display: grid;
@@ -48,7 +49,7 @@
   height: 48px;
   border-radius: 50%;
   color: var(--green);
-  background: white;
+  background: var(--accent);
 }
 .contact-card-number {
   color: var(--green);
@@ -74,7 +75,7 @@
 .commune-map {
   overflow: hidden;
   border-radius: var(--radius-panel);
-  background: var(--cream);
+  background: var(--surface);
   margin-left: 54px;
 }
 .commune-map iframe {
