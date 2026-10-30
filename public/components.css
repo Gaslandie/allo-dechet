@@ -28,6 +28,49 @@
 .navigation-links {
   gap: 20px;
 }
+.faq-intro h2 {
+  max-width: 12ch;
+  text-wrap: balance;
+}
+.contact-card {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  padding: var(--space-lg);
+  border-radius: var(--radius-panel);
+  background: var(--cream);
+}
+.contact-card-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: var(--green);
+  background: white;
+}
+.contact-card-number {
+  color: var(--green);
+  white-space: nowrap;
+}
+.contact-card-email {
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.contact-card-number:hover,
+.contact-card-email:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.contact-card .button {
+  margin-top: var(--space-xs);
+}
+@media (max-width: 767px) {
+  .contact-card {
+    padding: var(--space-md);
+  }
+}
 .commune-map {
   overflow: hidden;
   border-radius: var(--radius-panel);

@@ -41,6 +41,9 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const servicesTrack = document.querySelector("#services-track");
 const servicesPosition = document.querySelector("#services-position");
 const servicesControl = document.querySelector(".services-scroll-control");
+let servicesAnimation = 0;
+let servicesTarget = 0;
+
 function syncServicesPosition() {
   const maximum = servicesTrack.scrollWidth - servicesTrack.clientWidth;
   servicesControl.hidden = maximum <= 1;
@@ -57,7 +60,7 @@ function syncServicesPosition() {
     maximum > 0
       ? Math.round((servicesTrack.scrollLeft / maximum) * 1000) / 10
       : 0;
-  servicesPosition.value = String(value);
+  if (!servicesAnimation) servicesPosition.value = String(value);
   servicesPosition.setAttribute(
     "aria-valuetext",
     value <= 0
@@ -67,18 +70,66 @@ function syncServicesPosition() {
         : `Position dans les services : ${value} %`,
   );
 }
+function stopServicesAnimation() {
+  cancelAnimationFrame(servicesAnimation);
+  servicesAnimation = 0;
+}
+
 servicesPosition.addEventListener("input", () => {
-  servicesTrack.scrollLeft =
-    ((servicesTrack.scrollWidth - servicesTrack.clientWidth) *
-      Number(servicesPosition.value)) /
-    100;
+  stopServicesAnimation();
+  const maximum = servicesTrack.scrollWidth - servicesTrack.clientWidth;
+  servicesTarget = (maximum * Number(servicesPosition.value)) / 100;
+  if (reducedMotion.matches) {
+    servicesTrack.scrollLeft = servicesTarget;
+    syncServicesPosition();
+    return;
+  }
+
+  const start = servicesTrack.scrollLeft;
+  const startedAt = performance.now();
+  const duration = 220;
+  function advance(now) {
+    const progress = Math.min(1, (now - startedAt) / duration);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    servicesTrack.scrollLeft = start + (servicesTarget - start) * eased;
+    if (progress < 1) {
+      servicesAnimation = requestAnimationFrame(advance);
+    } else {
+      servicesAnimation = 0;
+      syncServicesPosition();
+    }
+  }
+  servicesAnimation = requestAnimationFrame(advance);
 });
+
+// Le geste direct sur les cartes reprend la main sur la barre animée.
+for (const event of ["pointerdown", "touchstart", "wheel", "keydown"]) {
+  servicesTrack.addEventListener(
+    event,
+    () => {
+      stopServicesAnimation();
+      syncServicesPosition();
+    },
+    { passive: true },
+  );
+}
 servicesTrack.addEventListener("scroll", syncServicesPosition, {
   passive: true,
 });
-window.addEventListener("resize", syncServicesPosition, { passive: true });
+function resizeServices() {
+  stopServicesAnimation();
+  syncServicesPosition();
+}
+window.addEventListener("resize", resizeServices, { passive: true });
 if ("ResizeObserver" in window)
-  new ResizeObserver(syncServicesPosition).observe(servicesTrack);
+  new ResizeObserver(resizeServices).observe(servicesTrack);
+reducedMotion.addEventListener("change", (event) => {
+  if (event.matches && servicesAnimation) {
+    stopServicesAnimation();
+    servicesTrack.scrollLeft = servicesTarget;
+    syncServicesPosition();
+  }
+});
 syncServicesPosition();
 if (
   "IntersectionObserver" in window &&
